@@ -1,0 +1,138 @@
+<title>Work Dashboard</title>
+
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="components/font-awesome/css/font-awesome.min.css">
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io.connect();
+</script>
+<script src="components/angular/angular.min.js"></script>
+<script src="components/angular-touch/angular-touch.min.js"></script>
+<script src="js/FogBugzCtrl.js"></script>
+<script src="js/ToDoCtrl.js"></script>
+<script src="js/GitCtrl.js"></script>
+<script src="js/TestCtrl.js"></script>
+<script src="js/ColorService.js"></script>
+<script src="js/angular.tree.js"></script>
+<script>
+    angular.module('main',['angularTree','color']);
+</script>
+<body ng-app="main">
+    <div class="git panel">
+        <div ng-controller="GitCtrl">
+            <h1>Git</h1>
+            <div class="day">
+                <span ng-repeat="work in dist"
+                    ng-style="spanStyle(work)"
+                    title="{{work.repo}}"
+                >
+                </span>
+            </div>
+            <table>
+                <tr ng-repeat="work in dist">
+                    <td ng-style="{color: getColor(work.repo)}">
+                        {{(today+work.start*1000)|date:'HH:mm'}}
+                        -
+                        {{(today+work.end*1000)|date:'HH:mm'}}
+                        :
+                        {{work.repo}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div ng-controller="TestCtrl">
+            <h1 ng-class="passClass(summary)">Tests</h1>
+            <table class="tests">
+                <tr>
+                    <td ng-class="passClass(summary)">
+                        PCC
+                    </td>
+                    <td>
+                        <span ng-hide="summary.failures=='0'">
+                            {{summary.failures}} of
+                        </span>
+                        {{summary.tests}}
+                    </td>
+                    <td>
+                        {{summary.time}} s
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="todo panel" ng-controller="ToDoCtrl">
+        <h1 ng-style="{color: getColor(project)}">
+            <span ng-click="togglePickMode()">
+                <i class="icon-caret-down"></i>
+                Todos {{project}}
+            </span>
+            <i class="icon-trash pull-right" ng-click="toggleDeleteMode()"></i>
+        </h1>
+        <ul ng-show="projectPickMode" class="todoprojects">
+            <li ng-repeat="p in projects" ng-click="pickProject(p)">
+                <span>{{p.name}}</span>
+            </li>
+        </ul>
+        <!-- problem here, ng-tree is not bi-directional -->
+        <!-- <ul ng-tree="todos">
+            <li each="todo in todos"
+                ng-class="{done:todo.done}"
+            >
+                <span ng-click="toggle(todo)"
+                    ng-swipe-left="promote(todo)"
+                    ng-swipe-right="demote(todo)"
+                >
+                    {{todo.text}}
+                </span>
+            </li>
+        </ul> -->
+        <ul class="todolist">
+            <li ng-repeat="todo in todos"
+                ng-class="{done:todo.done}"
+            >
+                <span ng-click="toggle(todo)"
+                    ng-swipe-left="promote(todo)"
+                    ng-swipe-right="demote(todo)"
+                >
+                    <span class="icon-trash pull-right"
+                        ng-click="remove($index)"
+                        ng-show="deleteMode"
+                    ></span>
+                    {{todo.text}}
+                </span>
+            </li>
+        </ul>
+        <form action="">
+            <input type="text" ng-model="newTodo">
+            <button ng-click="add()">Add</button>
+        </form>
+        <h1>Agenda</h1>
+    </div>
+    <div class="fogbugz panel" ng-controller="FogBugzCtrl">
+        <h1 ng-class="{error:!current}">Current case</h1>
+        <p>
+            <span class="big">
+                {{current.ixBug}}
+            </span>
+            <button ng-click="stop()">Stop</button>
+            <button ng-click="start(14392)">Start</button>
+        </p>
+        <p>
+            {{current.sTitle}}
+        </p>
+        <h1>Recent cases</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Number</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="case in history">
+                <td>{{case.ixBug}}</td>
+                <td>{{case.sTitle}}</td>
+                <td><a ng-click="start(case.ixBug)">Work on this</a></td>
+            </tr>
+        </table>
+    </div>
+</body>

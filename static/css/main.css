@@ -1,0 +1,157 @@
+@media screen {
+    html,body,input,button,td {
+        font-family: 'verdana';
+        font-size: 14px;
+    }
+    html,body {
+        padding: 0;
+        margin: 0;
+        overflow: auto;
+        background-color: #222;
+        color: #999;
+    }
+    h1 {
+        font-size: 20px;
+        font-weight: normal;
+    }
+    table {
+        border-collapse: collapse;
+        border: 1px solid #444;
+    }
+    table th,
+    table td {
+        border: 1px solid #444;
+        border-width: 1px 0;
+        padding: 2px 10px;
+    }
+    input,
+    button {
+        border: 1px solid #444;
+        border-radius: 5px;
+        background: none;
+        padding: 4px 10px;
+        overflow: hidden;
+        color: #BBB;
+    }
+}
+
+@media screen {
+    .tests .pass {
+        /*background-color: lime;*/
+        /*color: #222;*/
+    }
+    .tests .error {
+        background-color: crimson;
+        color: #222;
+    }
+}
+
+@media screen {
+    .day {
+        outline: 1px solid #444;
+        height: 20px;
+        position: relative;
+        margin: 1em 0;
+        position: relative;
+}
+    .day span {
+        position: absolute;
+        height: 100%;
+        box-sizing: border-box;
+        border-right: 1px solid #222;
+        background-color: crimson;
+    }
+    .day span:first-child {
+        border-left: 1px solid #222;
+    }
+}
+
+@media screen {
+    .todo {
+        position: relative;
+    }
+    .todo input {
+        width: 180px;
+        margin-left: 5px;
+    }
+    .todo ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+    .todo li {
+        margin-left: 30px;
+        padding: 0;
+    }
+    .todo li > span {
+        padding: 10px;
+        display: block;
+    }
+    .todoprojects {
+        position: absolute;
+        left: 0px;
+        width: 100%;
+        box-sizing: padding-box;
+        border-bottom: 1px solid #444;
+        background-color: #282828;
+    }
+    .todolist li::before {
+        border: 2px solid silver;
+        content: ' ';
+        float: left;
+        width: 16px;
+        height: 16px;
+        border-radius: 100px;
+        margin-top: 10px;
+        margin-left: -25px;
+    }
+    .todolist li.done::before {
+        background-color: silver;
+    }
+    .todolist .done {
+        text-decoration: line-through;
+        color: grey;
+    }
+}
+
+@media screen {
+    .git {
+        float: left;
+        width: 200px;
+    }
+    .todo {
+        float: right;
+        width: 200px;
+    }
+    .big {
+        font-size: 32px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .pull-right {
+        float: right;
+    }
+    .panel {
+        border: 1px solid #444;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 10px;
+        min-width: 250px;
+        height: 96%;
+        height: calc(100% - 22px);
+    }
+    .panel h1 {
+        outline: 1px solid #444;
+        margin: 0;
+        padding: 10px;
+        background-color: #333;
+    }
+    .panel h1.error {
+        background-color: crimson;
+        color: 222;
+    }
+    .panel p,
+    .panel table {
+        margin: 1em 10px;
+    }
+}

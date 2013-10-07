@@ -1,0 +1,22 @@
+{
+    "fogbugz": {
+        "url": "http://fogbugz.yourcompany.com/",
+        "email": "your.usermail@fogbugz.com",
+        "password": "yourfogbugzpassword",
+        "debug": true
+    },
+    "git": {
+        "user":"yourgituser"
+    },
+    "repos": {
+        "somereponame":"C:/path/to/repo/root",
+        "project2":"C:/another/path",
+    },
+    "tests": {
+        "project2":"C:/path/to/junit/results.xml"
+    },
+    "todos": {
+        "project2":"C:/path/to/todofile.json"
+    },
+    "port": 8123
+}
