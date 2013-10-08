@@ -10,7 +10,7 @@
     },
     "repos": {
         "somereponame":"C:/path/to/repo/root",
-        "project2":"C:/another/path",
+        "project2":"C:/another/path"
     },
     "tests": {
         "project2":"C:/path/to/junit/results.xml"
