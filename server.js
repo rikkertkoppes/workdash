@@ -79,5 +79,12 @@ app.post('/todos/:project', function(req, res) {
     });
 });
 
+//broadcast todo project change
+io.sockets.on('connection', function (socket) {
+    socket.on('todoproject', function (data) {
+        socket.broadcast.emit('todoproject',data);
+    });
+});
+
 server.listen(config.port);
 console.log('server started on port',config.port);

@@ -6,6 +6,10 @@ function ToDoCtrl($scope,$http,color) {
         $scope.todos = data;
         $scope.$apply();
     });
+    socket.on('todoproject',function(data) {
+        $scope.project = data;
+        $scope.$apply();
+    });
 
     $scope.load = function() {
         $http.get('/todos').success(function(projects) {
@@ -16,6 +20,7 @@ function ToDoCtrl($scope,$http,color) {
 
     $scope.$watch('project',function(newValue) {
         if (newValue) {
+            socket.emit('todoproject',newValue);
             $scope.loadProject(newValue);
         }
     });
