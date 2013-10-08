@@ -70,7 +70,7 @@
         </h1>
         <ul ng-show="projectPickMode" class="todoprojects">
             <li ng-repeat="p in projects" ng-click="pickProject(p)">
-                <span>{{p.name}}</span>
+                <span ng-style="{color: getColor(p.name)}">{{p.name}}</span>
             </li>
         </ul>
         <!-- problem here, ng-tree is not bi-directional -->
