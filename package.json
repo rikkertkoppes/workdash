@@ -2,7 +2,7 @@
   "name": "workdash",
   "version": "0.0.0",
   "description": "Work dashboard",
-  "main": "fogbugz.js",
+  "main": "server.js",
   "directories": {
     "test": "tests"
   },

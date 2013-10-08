@@ -119,6 +119,8 @@ function getLog(path,user,date,cb) {
                     date:new Date(parts[1]*1000),
                     msg:parts[2]
                 };
+            }).filter(function(obj) {
+                return obj.date >= date;
             }));
         }
     });
