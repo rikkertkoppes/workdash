@@ -6,6 +6,7 @@ var getCard = require('./punch');
 var junit = require('./junit');
 var fs = require('fs');
 var rest = require('restler');
+var Q = require('Q');
 
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
@@ -17,8 +18,30 @@ app.use(express.bodyParser());
 app.get('/fogbugz/history', function(req, res) {
     fb.listRecentIntervals().then(function(intervals) {
         res.send(intervals);
+        getCases(intervals);
     }).done();
 });
+
+function extend(dst,src) {
+    Object.keys(src).forEach(function(key) {
+        dst[key] = src[key];
+    });
+
+    return dst;
+}
+
+function getCases(intervals) {
+    fb.getCase(intervals.map(function(interval) {
+        return interval.ixBug;
+    }).join(','),['sProject']).then(function(res) {
+        intervals.forEach(function(interval,i) {
+            extend(interval,res[i]);
+        });
+
+        io.sockets.emit('fogbugz',intervals);
+    });
+}
+
 
 app.post('/fogbugz/stop', function(req, res) {
     fb.stopWork().then(function() {

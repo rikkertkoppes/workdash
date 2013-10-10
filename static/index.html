@@ -114,24 +114,29 @@
         <h1>Agenda</h1>
     </div>
     <div class="fogbugz panel" ng-controller="FogBugzCtrl">
-        <h1 ng-class="{error:!current}">Current case</h1>
-        <p>
-            <span class="big">
-                {{current.ixBug}}
-            </span>
-            <button ng-show="current" ng-click="stop()">Stop</button>
-            <span ng-hide="current">
-                <input type="number" ng-model="newCase">
-                <button ng-click="start(newCase)">Start</button>
-            </span>
-        </p>
-        <p>
-            {{current.sTitle}}
-        </p>
+        <div ng-style="{color: getColor(current.sProject)}">
+            <h1 ng-class="{error:!current}">Current case</h1>
+            <p>
+                <span class="big">
+                    {{current.ixBug}}
+                </span>
+                <button ng-show="current" ng-click="stop()">Stop</button>
+                <span ng-hide="current">
+                    <input type="number" ng-model="newCase">
+                    <button ng-click="start(newCase)">Start</button>
+                </span>
+            </p>
+            <p>
+                {{current.sTitle}}
+            </p>
+        </div>
         <h1>Recent cases</h1>
         <div class="tablewrapper">
             <table>
-                <tr ng-repeat="case in history" ng-click="start(case.ixBug)">
+                <tr ng-repeat="case in history"
+                    ng-click="start(case.ixBug)"
+                    ng-style="{color: getColor(case.sProject)}"
+                >
                     <td>{{case.ixBug}}</td>
                     <td>{{case.sTitle}}</td>
                 </tr>

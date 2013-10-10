@@ -1,7 +1,11 @@
-function FogBugzCtrl($scope,$http,$filter,$timeout,$socket) {
+function FogBugzCtrl($scope,$http,$filter,$timeout,$socket,color) {
 
-    $socket.on('fogbugz',function() {
-        $scope.load();
+    $socket.on('fogbugz',function(data) {
+        if (data) {
+            $scope.history = data;
+        } else {
+            $scope.load();
+        }
     });
 
     $scope.load = function() {
@@ -28,6 +32,8 @@ function FogBugzCtrl($scope,$http,$filter,$timeout,$socket) {
     };
 
     $scope.load();
+
+    $scope.getColor = color.getColor;
 
     //reload every 10 minutes
     function reload() {

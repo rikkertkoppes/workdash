@@ -5,6 +5,7 @@
         FB::cmd(cmd,arguments)
 
     some shortcuts:
+        FB::getCase(nr,cols)
         FB::listCases(person,cols,max)
         FB::listPeople(config)
         FB::listWorkingSchedule(person)
@@ -18,7 +19,7 @@
 
 */
 var Q = require('Q');
-var rest = require('restler');
+var request = require('request');
 var Args = require('vargs').Constructor;
 var xml2js = require('xml2js');
 var querystring = require('querystring');
@@ -26,11 +27,17 @@ var querystring = require('querystring');
 //some sugar
 function get(url,options) {
     var def = Q.defer();
-    rest.get(url,options).on('complete',function(result,response) {
-        if (result instanceof Error) {
-            def.reject(result);
+    request(url,function(err,response,body) {
+        if(err) {
+            def.reject(err);
         } else {
-            def.resolve(result);
+            xml2js.parseString(body,function(err,res) {
+                if(err) {
+                    def.reject(err);
+                } else {
+                    def.resolve(res);
+                }
+            });
         }
     });
     return def.promise;
@@ -55,10 +62,7 @@ FB.prototype.debug = function() {
 
 FB.prototype.get = function(url) {
     this.debug('bugz req:',url);
-    var options = {
-        parser: rest.parsers.xml
-    };
-    return get(url,options).then(function(res) {
+    return get(url).then(function(res) {
         console.log('response',res);
         return res;
     });
@@ -115,6 +119,12 @@ function simplify(obj) {
 //usefull shortcuts
 FB.prototype.listCases = function(person,cols,max) {
     return this.search('assignedTo:"'+person+'"',cols,max);
+};
+
+FB.prototype.getCase = function(nr,cols) {
+    return this.search(nr,cols).then(function(res) {
+        return res.response.cases[0]['case'].map(simplify);
+    });
 };
 
 FB.prototype.listPeople = function(config) {

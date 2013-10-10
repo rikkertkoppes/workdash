@@ -44,7 +44,7 @@ angular.module('color',[]).factory('color',function() {
         if (!key) {
             return '';
         }
-        var i = key.split('').reduce(function(prev,ch) {
+        var i = key.toUpperCase().split('').reduce(function(prev,ch) {
             return prev+ch.charCodeAt(0);
         },0);
         var numcols = 40; // 40 different colors

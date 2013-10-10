@@ -141,12 +141,12 @@
     }
     .panel {
         border: 1px solid #444;
+        border-width: 1px 0px 0px 1px;
         overflow: auto;
         -webkit-overflow-scrolling: touch;
-        margin: 10px;
         min-width: 250px;
-        height: 96%;
-        height: calc(100% - 22px);
+        height: 100%;
+        box-sizing: border-box;
     }
     .panel h1 {
         outline: 1px solid #444;
