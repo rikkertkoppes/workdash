@@ -1,14 +1,12 @@
-function ToDoCtrl($scope,$http,color) {
+function ToDoCtrl($scope,$http,color,$socket) {
     $scope.todos = [];
     $scope.projectPickMode = false;
 
-    socket.on('todo',function(data) {
+    $socket.on('todo',function(data) {
         $scope.todos = data;
-        $scope.$apply();
     });
-    socket.on('todoproject',function(data) {
+    $socket.on('todoproject',function(data) {
         $scope.project = data;
-        $scope.$apply();
     });
 
     $scope.load = function() {

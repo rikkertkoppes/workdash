@@ -1,5 +1,5 @@
-function TestCtrl($scope,$http,$timeout) {
-    socket.on('tests',function(data) {
+function TestCtrl($scope,$http,$timeout,$socket) {
+    $socket.on('tests',function(data) {
         $scope.load();
     });
 

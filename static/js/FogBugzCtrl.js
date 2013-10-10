@@ -1,6 +1,6 @@
-function FogBugzCtrl($scope,$http,$filter,$timeout) {
+function FogBugzCtrl($scope,$http,$filter,$timeout,$socket) {
 
-    socket.on('fogbugz',function() {
+    $socket.on('fogbugz',function() {
         $scope.load();
     });
 
