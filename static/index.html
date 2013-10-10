@@ -1,5 +1,5 @@
 <title>Work Dashboard</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="components/font-awesome/css/font-awesome.min.css">
 <script src="/socket.io/socket.io.js"></script>
@@ -28,36 +28,40 @@
                 >
                 </span>
             </div>
-            <table>
-                <tr ng-repeat="work in dist">
-                    <td ng-style="{color: getColor(work.repo)}">
-                        {{(today+work.start*1000)|date:'HH:mm'}}
-                        -
-                        {{(today+work.end*1000)|date:'HH:mm'}}
-                        :
-                        {{work.repo}}
-                    </td>
-                </tr>
-            </table>
+            <div class="tablewrapper">
+                <table>
+                    <tr ng-repeat="work in dist">
+                        <td ng-style="{color: getColor(work.repo)}">
+                            {{(today+work.start*1000)|date:'HH:mm'}}
+                            -
+                            {{(today+work.end*1000)|date:'HH:mm'}}
+                            :
+                            {{work.repo}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
         <div ng-controller="TestCtrl">
             <h1 ng-class="passClass(summary)">Tests</h1>
-            <table class="tests">
-                <tr>
-                    <td ng-class="passClass(summary)">
-                        PCC
-                    </td>
-                    <td>
-                        <span ng-hide="summary.failures=='0'">
-                            {{summary.failures}} of
-                        </span>
-                        {{summary.tests}}
-                    </td>
-                    <td>
-                        {{summary.time}} s
-                    </td>
-                </tr>
-            </table>
+            <div class="tablewrapper">
+                <table class="tests">
+                    <tr>
+                        <td ng-class="passClass(summary)">
+                            PCC
+                        </td>
+                        <td>
+                            <span ng-hide="summary.failures=='0'">
+                                {{summary.failures}} of
+                            </span>
+                            {{summary.tests}}
+                        </td>
+                        <td>
+                            {{summary.time}} s
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
     <div class="todo panel" ng-controller="ToDoCtrl">
@@ -114,25 +118,23 @@
             <span class="big">
                 {{current.ixBug}}
             </span>
-            <button ng-click="stop()">Stop</button>
-            <button ng-click="start(14392)">Start</button>
+            <button ng-show="current" ng-click="stop()">Stop</button>
+            <span ng-hide="current">
+                <input type="number" ng-model="newCase">
+                <button ng-click="start(newCase)">Start</button>
+            </span>
         </p>
         <p>
             {{current.sTitle}}
         </p>
         <h1>Recent cases</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Number</th>
-                    <th>Title</th>
+        <div class="tablewrapper">
+            <table>
+                <tr ng-repeat="case in history" ng-click="start(case.ixBug)">
+                    <td>{{case.ixBug}}</td>
+                    <td>{{case.sTitle}}</td>
                 </tr>
-            </thead>
-            <tr ng-repeat="case in history">
-                <td>{{case.ixBug}}</td>
-                <td>{{case.sTitle}}</td>
-                <td><a ng-click="start(case.ixBug)">Work on this</a></td>
-            </tr>
-        </table>
+            </table>
+        </div>
     </div>
 </body>
