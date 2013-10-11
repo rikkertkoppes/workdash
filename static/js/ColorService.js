@@ -49,7 +49,7 @@ angular.module('color',[]).factory('color',function() {
         },0);
         var numcols = 16; // 40 different colors
         var hue = 1*(i%numcols)/numcols;
-        var col = hslToRgb([hue,0.6,0.75]).map(function(c) {
+        var col = hslToRgb([hue,0.3,0.5]).map(function(c) {
             return Math.round(c);
         });
         var rgb = 'rgb('+col.join(',')+')';
