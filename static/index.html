@@ -130,14 +130,28 @@
                 {{current.sTitle}}
             </p>
         </div>
+        <h1>Week breakdown</h1>
+        <div class="week">
+            <span ng-repeat="(key,value) in week"
+                ng-style="spanStyle(key,value)"
+                title="{{key}}: {{value/3600|number:1}}"
+            >
+            </span>
+        </div>
         <h1>Recent cases</h1>
         <div class="tablewrapper">
             <table>
+                <colgroup>
+                    <col width="70">
+                    <col>
+                </colgroup>
                 <tr ng-repeat="case in history"
                     ng-click="start(case.ixBug)"
                     ng-style="{color: getColor(case.sProject)}"
                 >
-                    <td>{{case.ixBug}}</td>
+                    <td>
+                        {{case.ixBug}}
+                    </td>
                     <td>{{case.sTitle}}</td>
                 </tr>
             </table>

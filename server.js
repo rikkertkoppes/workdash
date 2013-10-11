@@ -16,7 +16,9 @@ app.use(express.bodyParser());
 
 //fogbugz
 app.get('/fogbugz/history', function(req, res) {
-    fb.listRecentIntervals().then(function(intervals) {
+    var lastweek = new Date();
+    lastweek.setDate(lastweek.getDate()-14);
+    fb.listIntervals(null,null,lastweek.toISOString()).then(function(intervals) {
         res.send(intervals);
         getCases(intervals);
     }).done();

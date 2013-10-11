@@ -2,15 +2,19 @@ function GitCtrl($scope,$http,$filter,$timeout,color) {
     var startTime = 8*60*60; //8 AM
     var endTime = 17*60*60; //5 PM
 
-    $scope.date = $filter('date')(new Date(),'yyyy-MM-dd');
-    var d = new Date();
-    d.setHours(0);
-    d.setMinutes(0);
-    d.setSeconds(0);
-    d.setMilliseconds(0);
-    $scope.today = +d;
+
+    function setToday() {
+        $scope.date = $filter('date')(new Date(),'yyyy-MM-dd');
+        var d = new Date();
+        d.setHours(0);
+        d.setMinutes(0);
+        d.setSeconds(0);
+        d.setMilliseconds(0);
+        $scope.today = +d;
+    }
 
     $scope.load = function(date) {
+        if (!date) {return;}
         $http.get('/card/'+ date.valueOf()).success(function(data) {
             $scope.card = data.card;
             $scope.dist = processDist(data.distribution);
@@ -46,10 +50,12 @@ function GitCtrl($scope,$http,$filter,$timeout,color) {
 
     //reload every 10 minutes
     function reload() {
+        setToday();
         $scope.load($scope.date);
         $timeout(reload,10*60*1000);
     }
     $timeout(reload,10*60*1000);
+    setToday();
 
     //util
     function processDist(dist) {

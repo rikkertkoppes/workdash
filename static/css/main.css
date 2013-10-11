@@ -14,9 +14,6 @@
         font-size: 20px;
         font-weight: normal;
     }
-    .tablewrapper {
-
-    }
     table {
         border-collapse: collapse;
         /*border: 1px solid #444;*/
@@ -44,10 +41,6 @@
 }
 
 @media screen {
-    .tests .pass {
-        /*background-color: lime;*/
-        /*color: #222;*/
-    }
     .tests .error {
         background-color: crimson;
         color: #222;
@@ -55,21 +48,26 @@
 }
 
 @media screen {
-    .day {
+    .day,
+    .week {
         outline: 1px solid #444;
         height: 20px;
-        position: relative;
         margin: 1em 0;
         position: relative;
 }
+    .week span,
     .day span {
-        position: absolute;
+        display: inline-block;
         height: 100%;
         box-sizing: border-box;
         border-right: 1px solid #222;
         background-color: crimson;
     }
-    .day span:first-child {
+    .day span {
+        position: absolute;
+    }
+    .day span:first-child,
+    .week span:first-child {
         border-left: 1px solid #222;
     }
 }
@@ -97,7 +95,7 @@
     }
     .todoprojects {
         position: absolute;
-        left: 0px;
+        left: 0;
         width: 100%;
         box-sizing: padding-box;
         border-bottom: 1px solid #444;
@@ -118,7 +116,7 @@
     }
     .todolist .done {
         text-decoration: line-through;
-        color: grey;
+        color: gray;
     }
 }
 
@@ -141,7 +139,7 @@
     }
     .panel {
         border: 1px solid #444;
-        border-width: 1px 0px 0px 1px;
+        border-width: 1px 0 0 1px;
         overflow: auto;
         -webkit-overflow-scrolling: touch;
         min-width: 250px;
@@ -151,16 +149,47 @@
     .panel h1 {
         outline: 1px solid #444;
         margin: 0;
-        padding: 0px 10px;
+        padding: 0 10px;
         line-height: 40px;
         background-color: #333;
     }
     .panel h1.error {
         background-color: crimson;
-        color: 222;
+        color: #222;
     }
     .panel p {
         margin: 1em 10px;
+    }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) and (min-width: 1030px) {
+    .panel::-webkit-scrollbar-button {
+        width: 2px;
+        height: 2px;
+    }
+    .panel::-webkit-scrollbar {
+        background: none;
+        width: 8px;
+        height: 8px;
+    }
+    .panel::-webkit-scrollbar-thumb {
+        background-color: gray;
+        border-radius: 8px;
+        border: 1px solid #333;
+    }
+    .panel::-webkit-scrollbar-thumb:horizontal {
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#555), color-stop(100%,#444));
+        background: -webkit-linear-gradient(top, #555 0%,#444 100%);
+        background: linear-gradient(to bottom, #555 0%,#444 100%);
+    }
+    .panel::-webkit-scrollbar-thumb:vertical {
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#555), color-stop(100%,#444));
+        background: -webkit-linear-gradient(left, #555 0%,#444 100%);
+        background: linear-gradient(to right, #555 0%,#444 100%);
+    }
+
+    .panel::-webkit-scrollbar-corner {
+        background: none;
     }
 }
 

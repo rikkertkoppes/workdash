@@ -157,21 +157,22 @@ FB.prototype.listIntervals = function(person,caseNumber,startDate,endDate) {
         dtStart: startDate,
         dtEnd: endDate
     }).then(function(res) {
-        return simplify(res.response).intervals.interval;
+        return simplify(res.response).intervals.interval.map(simplify).reverse();
     });
 };
 
 FB.prototype.listRecentIntervals = function(max) {
     return this.listIntervals().then(function(res) {
-        var list = [];
-        var last;
-        res.map(simplify).reverse().forEach(function(item) {
-            if (!(last && (last.ixBug === item.ixBug))) {
-                list.push(item);
-                last = item;
-            }
-        });
-        return list.slice(0,max||10);
+        // var map = {};
+        // var list = [];
+        // res.forEach(function(item) {
+        //     if (!map[item.ixBug]) {
+        //         map[item.ixBug] = true;
+        //         list.push(item);
+        //     }
+        // });
+
+        return res.slice(0,max||10);
     });
 };
 
